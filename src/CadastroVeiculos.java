@@ -90,7 +90,7 @@ public class CadastroVeiculos {
 
         for (Veiculo v : veiculos) {
             if (identificaPlaca(placa)) {
-                System.out.println("Placa removida com sucesso");
+                System.out.println("Veículo removido com sucesso!");
                 veiculos.remove(v);
                 return;
             }
@@ -101,31 +101,31 @@ public class CadastroVeiculos {
 
 static void pesquisaVeiculo() {
     System.out.println("==== PESQUISAR VEICULO ====");
-    String pesquisa = Input.scanString("Você deseja fazer a pesquisa por placa ou por modelo?\n(P) - placa | (M) - modelo", scan);
+    String pesquisa = Input.scanString("Você deseja fazer a pesquisa por placa ou por modelo?\n(P) - placa | (M) - modelo\n", scan).toUpperCase();
+        if (pesquisa.equals("P")) {
+            String placa = Input.scanString("Digite a placa: ", scan);
 
-    if (pesquisa.equals("P")) {
-        String placa = Input.scanString("Digite a placa: ", scan);
+            for (Veiculo v : veiculos){
 
-        for (Veiculo v : veiculos){
+                if (identificaPlaca(placa)) {
+                    System.out.println(v);
+                    return;
+                }
+            }
+            System.out.println("Placa inválida!");
+            return;
+        }
+        if (pesquisa.equals("M")) {
+            String  modelo = Input.scanString("Digite o modelo: ", scan).toLowerCase();
 
-            if (v.getPlaca().equals(placa)) {
-                System.out.println(v);
-                return;
+            for (Veiculo v : veiculos){
+
+                if (v.getModelo().toLowerCase().contains(modelo)) {
+                    System.out.println(v);
+                }
             }
         }
-        System.out.println("Placa inválida!");
-    }
-    if (pesquisa.equals("M")) {
-        String  modelo = Input.scanString("Digite o modelo: ", scan);
-
-        for (Veiculo v : veiculos){
-
-            if (v.getModelo().contains(modelo)) {
-                System.out.println(v);
-                return;
-            }
-        }
-    }
+        System.out.println("Opção inválida!");
 }
 static Boolean identificaPlaca(String v) {
     for (Veiculo v2 : veiculos){
@@ -134,5 +134,5 @@ static Boolean identificaPlaca(String v) {
         }
     }
     return false;
-}
+    }
 }
